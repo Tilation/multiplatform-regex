@@ -1,27 +1,27 @@
-name: 'Read Assembly Version'
-description: 'Lee la verison del assembly'
+name: 'Regex on Repo'
+description: 'Runs regex on repositories, on the cloud!'
 branding:
   icon: activity
   color: orange
   
 inputs:
   github:
-    description: 'The repository to search for, example "username/repo"'
+    description: 'The owner and repository that owns the file.'
     required: true
   ref:
-    description: 'Commit sha, branch name, or tag.'
+    description: 'The reference to use for getting the file, can be a commit sha, branch name, or tag.'
     required: true
   token:
-    description: 'The github token for the action'
+    description: 'A github token that has read access to the repository.'
     required: true
   regex:
-    description: 'The regex match string'
+    description: 'The regex match string.'
     required: true
   file:
-    description: 'The relative directory to the file to read'
+    description: 'The directory to the file to read, relative to the root of the specified repository.'
     required: true
   debug:
-    description: 'Debug output variables'
+    description: 'Debug output toggle, will output to the console all the matches with every group. false by default.'
     required: false
     
 runs:
