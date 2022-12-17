@@ -9,7 +9,7 @@ Runner OS | Notes
 ---|---
 `ubuntu` | Working fine
 `macos` | Working fine
-`windows` | Takes 1 minute longer
+`windows` | Takes 1 minute longer, still fine
 
 ### Example usage
 
