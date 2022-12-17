@@ -13,7 +13,7 @@ jobs:
       
     - name: Regex On Repo
       id: regex
-      uses: tilation/regex-on-repo@v1.1.0
+      uses: ./
       with:
         github: ${{ github.repository }}
         ref:  'development'
