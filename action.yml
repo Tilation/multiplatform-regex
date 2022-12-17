@@ -40,7 +40,14 @@ runs:
 
     - name: Run
       shell: bash
+      env:
+        _github: ${{ inputs.github}}
+        _regex: ${{ inputs.regex }}
+        _refsha: ${{ inputs.refsha }}
+        _token: ${{ inputs.token }}
+        _file: ${{ inputs.file }}
+        _debug: ${{ inputs.debug}}
       run: |
         dotnet restore
         dotnet build
-        dotnet run -- -g "${{ inputs.github }}" -r "${{ inputs.ref }}" -t "${{ inputs.token }}" -x "${{ inputs.regex }}" -f "${{ inputs.file }}" -d "${{ inputs.debug }}"
+        dotnet run
