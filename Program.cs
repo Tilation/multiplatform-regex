@@ -21,9 +21,11 @@ namespace updater
             string? _file = Environment.GetEnvironmentVariable("_file");
             string? _debug = Environment.GetEnvironmentVariable("_debug");
 
-            if (new[] { _github, _regex, _ref, _token, _file }.Any(x=>string.IsNullOrWhiteSpace(x)))
+            var invalidParameters = new[] { _github, _regex, _ref, _token, _file }.Where(x => string.IsNullOrWhiteSpace(x)).ToArray();
+
+            if (invalidParameters.Length > 0)
             {
-                throw new Exception("Missing parameter");
+                throw new Exception($"Missing parameter: {string.Join(",", invalidParameters)}");
             }
 
             Octokit.GitHubClient client = new GitHubClient(new ProductHeaderValue("regex-on-repo"));
