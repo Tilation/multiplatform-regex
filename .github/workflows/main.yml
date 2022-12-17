@@ -16,7 +16,7 @@ jobs:
       uses: ./      # replace ver with version number
       with:
         github: ${{ github.repository }}
-        ref:  ${{ github.ref }}
+        ref:  'development'
         token: ${{ secrets.GITHUB_TOKEN }}
         regex: '`([^`\W]+)`'
         file: 'README.MD'
