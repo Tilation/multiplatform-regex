@@ -43,4 +43,4 @@ runs:
       run: |
         dotnet restore
         dotnet build
-        dotnet run 
+        dotnet run -- -g ${{ inputs.github }} -r ${{ inputs.ref }} -t ${{ inputs.token }} -x ${{ inputs.regex }} -f ${{ inputs.file }} -d ${{ inputs.debug }}
