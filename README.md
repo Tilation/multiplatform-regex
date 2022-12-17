@@ -1,9 +1,15 @@
 # Regex on Repo
-Or simply `ror` is a github action that does that.
 
-This action works on: `ubuntu`, `windows` and `macos`
+Or simply `ror` is a github action that does regex, on files on a cloud repository without doing a git checkout.
 
-However running under `windows` takes 1 minute longer due the nature of the Windows Server operating system. (1 minute and 57 seconds)
+[![Multiplatform Test](https://github.com/Tilation/regex-on-repo/actions/workflows/main.yml/badge.svg)](https://github.com/Tilation/regex-on-repo/actions/workflows/main.yml)
+
+
+Runner OS | Notes
+---|---
+`ubuntu` | Working fine
+`macos` | Working fine
+`windows` | Takes 1 minute longer, still fine
 
 ### Example usage
 
@@ -18,15 +24,15 @@ jobs:
     runs-on: ubuntu-latest
    
     steps:
-    - name: Regex On Repo
+    - name: Multiplatform Regex
       id: regex
-      uses: tilation/regex-on-repo@ver      # replace ver with version number
+      uses: tilation/regex-on-repo
       with:
-        github: 'tilation/regex-on-repo'    # can use ${{ github.repository }}
-        ref: 'main'                         # can use ${{ github.ref }}
+        github: ${{ github.repository }}
+        ref:  'development'
         token: ${{ secrets.GITHUB_TOKEN }}
         regex: '`([^`\W]+)`'
-        file: 'README.MD'
+        file: 'README.md'
         debug: true
 ```
 

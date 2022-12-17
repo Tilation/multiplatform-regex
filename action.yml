@@ -1,5 +1,5 @@
-name: 'Regex on Repo'
-description: 'Runs regex on repositories, on the cloud!'
+name: 'Multiplatform Regex'
+description: 'Runs regex on repositories, without doing the lengthy checkout!'
 branding:
   icon: book
   color: green
