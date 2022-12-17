@@ -1,19 +1,53 @@
-name: ROR
+name: Multiplatform Test
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
-  regex:
+  regex_ubuntu:
     runs-on: ubuntu-latest
    
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.6.0
+      uses: actions/checkout@v3
       
     - name: Regex On Repo
       id: regex
-      uses: ./      # replace ver with version number
+      uses: ./
+      with:
+        github: ${{ github.repository }}
+        ref:  'development'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        regex: '`([^`\W]+)`'
+        file: 'README.md'
+        debug: true
+  regex_windows:
+    runs-on: windows-latest
+   
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Regex On Repo
+      id: regex
+      uses: ./
+      with:
+        github: ${{ github.repository }}
+        ref:  'development'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        regex: '`([^`\W]+)`'
+        file: 'README.md'
+        debug: true
+  regex_macos:
+    runs-on: macos-latest
+   
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Regex On Repo
+      id: regex
+      uses: ./
       with:
         github: ${{ github.repository }}
         ref:  'development'

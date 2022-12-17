@@ -11,59 +11,34 @@ namespace updater
 {
     partial class Program
     {
-        class Options
-        {
-            [Option('g', "github",
-                Required = true,
-                HelpText = "The owner and repository name combination, example \"the-owner/and-the-repository\"")]
-            public string Repo { get; set; }
-
-            [Option('r', "ref",
-                Required = true,
-                HelpText = "The reference to use for getting the file, can be a commit sha, branch name, or tag.")]
-            public string Ref { get; set; }
-
-            [Option('t', "token",
-                Required = true,
-                HelpText = "A github token that has read access to the repository.")]
-            public string GithubToken { get; set; }
-
-            [Option('x', "regex",
-                Required = true,
-                HelpText = "The regex match string")]
-            public string RegexString { get; set; }
-
-            [Option('f', "file",
-                Required = true,
-                HelpText = "The relative directory to the file to read")]
-            public string FilePath { get; set; }
-
-            [Option('d', "debug",
-                Required = false,
-                HelpText = "Debug output toggle")]
-            public bool Debug { get; set; }
-        }
-
         static void Main(string[] args)
         {
-            string outputFile = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
+            string? outputFile = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
+            string? _github = Environment.GetEnvironmentVariable("_github");
+            string? _regex = Environment.GetEnvironmentVariable("_regex");
+            string? _ref = Environment.GetEnvironmentVariable("_ref");
+            string? _token = Environment.GetEnvironmentVariable("_token");
+            string? _file = Environment.GetEnvironmentVariable("_file");
+            string? _debug = Environment.GetEnvironmentVariable("_debug");
 
-            Options options = null;
-            var options_result = CommandLine.Parser.Default.ParseArguments<Options>(args);
-            if (options_result.Errors.Any()) throw new Exception("There are errors on the parameters.");
-            else if (options_result.Value != null) options = options_result.Value;
+            var invalidParameters = new[] { _github, _regex, _ref, _token, _file }.Where(x => string.IsNullOrWhiteSpace(x)).ToArray();
+
+            if (invalidParameters.Length > 0)
+            {
+                throw new Exception($"Missing parameter: {string.Join(",", invalidParameters)}");
+            }
 
             Octokit.GitHubClient client = new GitHubClient(new ProductHeaderValue("regex-on-repo"));
-            client.Credentials = new Credentials(options.GithubToken);
+            client.Credentials = new Credentials(_token);
 
-            string _owner = options.Repo.Split('/')[0];
-            string _repo = options.Repo.Split('/')[1];
+            string _owner = _github.Split('/')[0];
+            string _repo = _github.Split('/')[1];
 
             Repository repo = Task.Run(() => client.Repository.Get(_owner, _repo)).Result;
 
-            Regex reg = new Regex(options.RegexString, RegexOptions.Compiled);
+            Regex reg = new Regex(_regex, RegexOptions.Compiled);
 
-            var content = Task.Run(() => client.Repository.Content.GetAllContentsByRef(repo.Id, options.FilePath, options.Ref)).Result[0];
+            var content = Task.Run(() => client.Repository.Content.GetAllContentsByRef(repo.Id, _file, _ref)).Result[0];
 
             var matches = reg.Matches(content.Content);
 
@@ -79,7 +54,7 @@ namespace updater
                     sb.AppendLine($"match_{i}_group_{j}={group.Value}");
                 }
             }
-            if (options.Debug)
+            if (string.Equals(_debug, "true", StringComparison.InvariantCultureIgnoreCase))
             {
                 Console.WriteLine("DEBUG OUTPUT START");
                 Console.WriteLine(sb.ToString());
