@@ -1,11 +1,11 @@
-name: ROR
+name: Test Ubuntu
 
 on:
   workflow_dispatch:
 
 jobs:
   regex:
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
    
     steps:
     - name: Checkout
