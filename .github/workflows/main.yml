@@ -19,5 +19,5 @@ jobs:
         ref:  'development'
         token: ${{ secrets.GITHUB_TOKEN }}
         regex: '`([^`\W]+)`'
-        file: 'README.MD'
+        file: 'README.md'
         debug: true
