@@ -1,6 +1,6 @@
-# Regex on Repo
+# Multiplatform Regex
 
-Or simply `ror` is a github action that does regex, on files on a cloud repository without doing a git checkout.
+Doing Regex, on files on a cloud repository without doing a git checkout.
 
 [![Multiplatform Test](https://github.com/Tilation/regex-on-repo/actions/workflows/main.yml/badge.svg)](https://github.com/Tilation/regex-on-repo/actions/workflows/main.yml)
 
