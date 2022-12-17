@@ -25,18 +25,20 @@ inputs:
     required: false
     
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-  - '-g'
-  - ${{ inputs.github }}
-  - '-r'
-  - ${{ inputs.ref }}
-  - '-t'
-  - ${{ inputs.token }}
-  - '-x'
-  - ${{ inputs.regex }}
-  - '-f'
-  - ${{ inputs.file }}
-  - '-d'
-  - ${{ inputs.debug }}
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Nuget
+      uses: nuget/setup-nuget@v1
+
+    - name: Run
+      shell: bash
+      run: |
+        nuget restore regex-on-repo.csproj
+        msbuild regex-on-repo.csproj -t:rebuild -property:Configuration=Release
+        ./regex-on-repo.*
