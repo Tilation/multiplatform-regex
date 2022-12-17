@@ -1,0 +1,23 @@
+name: ROR
+
+on:
+  push:
+
+jobs:
+  regex:
+    runs-on: ubuntu-latest
+   
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.6.0
+      
+    - name: Regex On Repo
+      id: regex
+      uses: ./      # replace ver with version number
+      with:
+        github: ${{ github.repository }}
+        ref:  'development'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        regex: '`([^`\W]+)`'
+        file: 'README.md'
+        debug: true

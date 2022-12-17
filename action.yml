@@ -1,0 +1,42 @@
+name: 'Read Assembly Version'
+description: 'Lee la verison del assembly'
+branding:
+  icon: activity
+  color: orange
+  
+inputs:
+  github:
+    description: 'The repository to search for, example "username/repo"'
+    required: true
+  ref:
+    description: 'Commit sha, branch name, or tag.'
+    required: true
+  token:
+    description: 'The github token for the action'
+    required: true
+  regex:
+    description: 'The regex match string'
+    required: true
+  file:
+    description: 'The relative directory to the file to read'
+    required: true
+  debug:
+    description: 'Debug output variables'
+    required: false
+    
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+  - '-g'
+  - ${{ inputs.github }}
+  - '-r'
+  - ${{ inputs.ref }}
+  - '-t'
+  - ${{ inputs.token }}
+  - '-x'
+  - ${{ inputs.regex }}
+  - '-f'
+  - ${{ inputs.file }}
+  - '-d'
+  - ${{ inputs.debug }}
