@@ -1,0 +1,18 @@
+on:
+  push:
+
+jobs:
+  regex:
+    runs-on: ubuntu-latest
+   
+    steps:
+    - name: Regex On Repo
+      id: regex
+      uses: ./      # replace ver with version number
+      with:
+        github: ${{ github.repository }}
+        ref:  ${{ github.ref }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        regex: '`([^`\W]+)`'
+        file: 'README.MD'
+        debug: true
