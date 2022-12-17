@@ -43,7 +43,7 @@ runs:
       env:
         _github: ${{ inputs.github}}
         _regex: ${{ inputs.regex }}
-        _refsha: ${{ inputs.refsha }}
+        _ref: ${{ inputs.refsha }}
         _token: ${{ inputs.token }}
         _file: ${{ inputs.file }}
         _debug: ${{ inputs.debug}}

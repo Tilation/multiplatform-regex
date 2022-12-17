@@ -16,12 +16,12 @@ namespace updater
             string? outputFile = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
             string? _github = Environment.GetEnvironmentVariable("_github");
             string? _regex = Environment.GetEnvironmentVariable("_regex");
-            string? _refsha = Environment.GetEnvironmentVariable("_refsha");
+            string? _ref = Environment.GetEnvironmentVariable("_ref");
             string? _token = Environment.GetEnvironmentVariable("_token");
             string? _file = Environment.GetEnvironmentVariable("_file");
             string? _debug = Environment.GetEnvironmentVariable("_debug");
 
-            if (new[] { _github, _regex, _refsha, _token, _file }.Any(x=>string.IsNullOrWhiteSpace(x)))
+            if (new[] { _github, _regex, _ref, _token, _file }.Any(x=>string.IsNullOrWhiteSpace(x)))
             {
                 throw new Exception("Missing parameter");
             }
@@ -36,7 +36,7 @@ namespace updater
 
             Regex reg = new Regex(_regex, RegexOptions.Compiled);
 
-            var content = Task.Run(() => client.Repository.Content.GetAllContentsByRef(repo.Id, _file, _refsha)).Result[0];
+            var content = Task.Run(() => client.Repository.Content.GetAllContentsByRef(repo.Id, _file, _ref)).Result[0];
 
             var matches = reg.Matches(content.Content);
 
