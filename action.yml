@@ -30,8 +30,10 @@ runs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
 
     - name: Nuget
       uses: nuget/setup-nuget@v1
@@ -39,6 +41,6 @@ runs:
     - name: Run
       shell: bash
       run: |
-        nuget restore regex-on-repo.csproj
-        msbuild regex-on-repo.csproj -t:rebuild -property:Configuration=Release
-        ./regex-on-repo.*
+        dotnet restore
+        dotnet build
+        dotnet run 
