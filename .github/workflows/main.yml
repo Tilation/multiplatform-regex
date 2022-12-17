@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
    
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2.6.0
+      
     - name: Regex On Repo
       id: regex
       uses: ./      # replace ver with version number
