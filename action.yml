@@ -1,4 +1,4 @@
-name: 'Multiplatform Regex'
+name: 'Regex'
 description: 'Runs regex on repositories, without doing the lengthy checkout! Supports ubuntu, windows and macos!'
 branding:
   icon: book
