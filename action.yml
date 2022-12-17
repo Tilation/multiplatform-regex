@@ -1,8 +1,8 @@
 name: 'Regex on Repo'
 description: 'Runs regex on repositories, on the cloud!'
 branding:
-  icon: activity
-  color: orange
+  icon: book
+  color: green
   
 inputs:
   github:
