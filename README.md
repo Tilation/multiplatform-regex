@@ -1,7 +1,9 @@
 # Regex on Repo
 Or simply `ror` is a github action that does that.
 
-This action only works on: `ubuntu` as it is a docker image.
+This action works on: `ubuntu`, `windows` and `macos`
+
+However running under `windows` takes 1 minute longer due the nature of the Windows Server operating system. (1 minute and 57 seconds)
 
 ### Example usage
 
