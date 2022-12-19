@@ -2,7 +2,13 @@ name: Multiplatform Test
 
 on:
   workflow_dispatch:
-
+  pull_request:
+    branches: 'main'
+    types:
+      - opened
+      - reopened
+      - synchronize
+      
 jobs:
   regex_ubuntu:
     runs-on: ubuntu-latest
