@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
 
-namespace updater
+namespace MultiplatformRegex
 {
     partial class Program
     {
